@@ -22,3 +22,59 @@ Com base nos problemas e práticas acima mencionados, podemos concluir que o có
 
 link recomendado: https://www.cppstories.com/p/start-here/
 
+Relatorio feito em 2022 para melhorar o ensino de c++
+
+Com toda humildade partilho as minhas pesquisas, sem intenção de ser mal-interpretado, nem criar hostilidades, pois verifiquei o seguinte, o IDE Eclipse que me foi recomendado, não devia ser utilizado para C ou C++, não é muito User Friendly a meu ver:
+
+Os que merecem em meu entender por ordem de usuários são:
+-Clion da jetBrians, que conseguimos instalar com o mail de estudante 
+-Visual Studio
+-QtCreator para mim o melhor de todos e foi o que utilizei para fazer o EfolioA
+
+Outros que não são IDE ́s, mas merecem ser comentados, tais como: 
+-Kate
+-Atom
+-Visual Studio Code
+Os que em minha opinião nunca deveriam ser usados, para C++: 
+Code::Blocks
+DevC++
+FalconC++
+NetBeans
+
+O motivo de *não* os usar, é que não tem desenvolvimento ativo e não acompanham as novas versões do C++
+O QtCreator deveria ser adotado nas faculdades, por ser uma IDE gratuita *e* atual.
+Também notei nas respostas das atividades, o C++ ensinado aqui neste codigo é de 98 ou pelo menos no programa:
+https://en.wikipedia.org/wiki/C%2B%2B11
+
+O C++ moderno começou em 2011, (—std=c++11), atualmente está na versão 2020 (—std=c++20).
+As versões de C++ moderno são 2011, 2014, 2017, 2020
+https://en.wikipedia.org/wiki/C%2B%2B14 https://en.wikipedia.org/wiki/C%2B%2B17 https://en.wikipedia.org/wiki/C%2B%2B20 Próxima versão sairá o ano que vem, em 2023.
+
+Atenção que estas diferentes versões, tem melhorias incrementais, e o código antigo continua funcionando, (o código de 1998).
+O problema no código nas respostas, para mim está errado, talvez utilizem a versão de 98, por ser compatível com todos os IDE’s, mas o que verifiquei, é que foi recomendada a instalação do mingw, que suporta o C++20, então me pergunto, porque continuar a ensinar C++ de 98, algo que ninguém utiliza mais? O Mac também suporta e Linux também suporta os mais recentes, o C++ é uma linguagem de 24 anos, casada e com filhos.
+C++11 já tem 11 anos, é tempo suficiente, na minha humilde opinião, para as empresas, faculdades e tudo se adaptarem.
+
+Na Resposta a este codigo é utlizado de forma errada o namespace std, verifiquei que é proibido pela especificação do C++ adicionar código no namespace std, podem ver aqui no site oficial:
+https://en.cppreference.com/w/cpp/language/extending_std
+“Adding declarations to std
+It is undefined behavior to add declarations or definitions to namespace std”
+adicionar código ao standard library é erro grave, e o compilador pode não gerar o código correspondente. Por definição do spec ISO/IEC 14882 adicionar código ao standard library é considerado *UNDEFINED BEHAVIOR*.
+namespace std { eu não utilizo no meu código
+Baseado nisto estive a ver o porque, using namespace std; é considerado uma
+má pratica, deixo aqui um link atualizado:
+https://stackoverflow.com/questions/1452721/why-is-using-namespace-std- considered-bad-practice
+
+Tem outros erros a meu ver não deviam ser utlizados dessa forma, por exemplo na class Alunos, buraco de memoria entre nome e nMatr e Curso, falta std antes de string e falta identificador de variáveis privadas geralmente m_ ou _, isto são boas praticas que estive a verificar, entre outros erros como destrutores desnecessários e std::' na frente no vector, porque utilizar elementos do standard library no namespace global é perigoso, pois não tem como garantir a *quantidade* de elementos que irão ser colocados no namespace global, o construtor Alunos::Alunos() {} é falível, a meu ver os construtores não podem falhar, no caso que eu coloque um valor string em nota, ou curso, irá dar throw, o construtor deve receber os valores já validados para criar o aluno e não pedir informações sobre o aluno após a criação.
+
+Também verifiquei que o for por exemplo, em C++ moderno, se pode fazer mais simples, de seguida um exemplo dos dois for:
+// For mais moderno
+for (const auto& valoratual : m_atividades){
+         valoratual.imprime();
+     }
+//for moderno que le o índices é igual ao for comum embaixo
+for (int i=0; i < m_atividades.size();i++){ const auto& valoratual=m_atividades[i]; valoratual.imprime();
+}
+Depois de ler e verificar tanta coisa, decidi fazer meu programa com QtCreator, e tentar colocar boas praticas, foi feito no mac, e compilado com o Clang que fornece um front-end da linguagem e infraestrutura da ferramentas para linguagens da família C(C, C++, Obejtictive C/C++, OpenCL, CUDA, e RenderScript)
+segue o link do meu exemplo:
+https://github.com/StudentUAb/alunos_POO
+
